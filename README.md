@@ -1,0 +1,1 @@
+# genrails-generators-php1
