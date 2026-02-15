@@ -3,6 +3,7 @@
 namespace App\apis\blog\dto;
 
 use JsonSerializable;
+use App\apis\blog\models\Blog;
 
 class UpdateBlogOutDTO implements JsonSerializable
 {
@@ -13,6 +14,17 @@ class UpdateBlogOutDTO implements JsonSerializable
         public readonly int     $user_id,
         public readonly ?string $created_at,
     ) {}
+
+    public static function fromModel(Blog $blog): self
+    {
+        return new self(
+            $blog->id,
+            $blog->title,
+            $blog->description,
+            $blog->user_id,
+            $blog->created_at?->toIso8601String(),
+        );
+    }
 
     public function jsonSerialize(): array
     {

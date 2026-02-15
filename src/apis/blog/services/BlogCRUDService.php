@@ -12,7 +12,7 @@ class BlogCRUDService
         $query = Blog::query();
 
         foreach ($filters as $filter) {
-            $query->where($filter['field'], $filter['operator'], $filter['value']);
+            $query->where($filter->field, $filter->operator, $filter->value);
         }
 
         return $query->get();

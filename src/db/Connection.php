@@ -3,6 +3,7 @@
 namespace App\db;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use App\logs\Logger;
 use Dotenv\Dotenv;
 
 class Connection
@@ -32,6 +33,14 @@ class Connection
 
         $capsule->setAsGlobal();
         $capsule->bootEloquent();
+
+        Capsule::connection()->enableQueryLog();
+        Capsule::connection()->listen(function ($query) {
+            Logger::channel('sql')->debug($query->sql, [
+                'bindings' => $query->bindings,
+                'ms'       => $query->time,
+            ]);
+        });
 
         self::$initialized = true;
     }

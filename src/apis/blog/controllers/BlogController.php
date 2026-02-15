@@ -2,7 +2,6 @@
 
 namespace App\apis\blog\controllers;
 
-use AutoMapperPlus\AutoMapper;
 use App\apis\blog\services\BlogCRUDService;
 use App\apis\blog\filters\BlogFilters;
 use App\apis\blog\validation\BlogValidation;
@@ -16,12 +15,10 @@ use App\apis\blog\dto\UpdateBlogOutDTO;
 class BlogController
 {
     private BlogCRUDService $blogService;
-    private AutoMapper $mapper;
 
-    public function __construct(BlogCRUDService $blogService, AutoMapper $mapper)
+    public function __construct(BlogCRUDService $blogService)
     {
         $this->blogService = $blogService;
-        $this->mapper = $mapper;
     }
 
     public function index(): void
@@ -29,7 +26,7 @@ class BlogController
         header('Content-Type: application/json');
         $filters = BlogFilters::apply($_GET);
         $blogs = $this->blogService->getAll($filters);
-        echo json_encode($this->mapper->mapMultiple($blogs, GetAllBlogOutDTO::class));
+        echo json_encode(array_map(fn($blog) => GetAllBlogOutDTO::fromModel($blog), $blogs->all()));
     }
 
     public function show(array $params): void
@@ -43,7 +40,7 @@ class BlogController
             return;
         }
 
-        echo json_encode($this->mapper->map($blog, GetByIdBlogOutDTO::class));
+        echo json_encode(GetByIdBlogOutDTO::fromModel($blog));
     }
 
     public function store(): void
@@ -62,7 +59,7 @@ class BlogController
         $blog = $this->blogService->create($dto->toArray());
 
         http_response_code(201);
-        echo json_encode($this->mapper->map($blog, CreateBlogOutDTO::class));
+        echo json_encode(CreateBlogOutDTO::fromModel($blog));
     }
 
     public function update(array $params): void
@@ -86,7 +83,7 @@ class BlogController
             return;
         }
 
-        echo json_encode($this->mapper->map($blog, UpdateBlogOutDTO::class));
+        echo json_encode(UpdateBlogOutDTO::fromModel($blog));
     }
 
     public function destroy(array $params): void

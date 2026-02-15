@@ -2,6 +2,9 @@
 
 namespace App\apis\blog\filters;
 
+use App\apis\_commons\models\Filter;
+use App\core\FiltersBuilder;
+
 class BlogFilters
 {
     const SEARCHABLE_FIELDS = [
@@ -11,27 +14,14 @@ class BlogFilters
         'created_at'  => 'range',
     ];
 
+    /**
+     * Build filter conditions for Blog from the incoming query parameters.
+     *
+     * @param  array $queryParams  Query parameters from the HTTP request.
+     * @return Filter[]            List of filter conditions.
+     */
     public static function apply(array $queryParams): array
     {
-        $filters = [];
-
-        foreach (self::SEARCHABLE_FIELDS as $field => $type) {
-            if ($type === 'range') {
-                if (isset($queryParams[$field . '_from'])) {
-                    $filters[] = ['field' => $field, 'operator' => '>=', 'value' => $queryParams[$field . '_from']];
-                }
-                if (isset($queryParams[$field . '_to'])) {
-                    $filters[] = ['field' => $field, 'operator' => '<=', 'value' => $queryParams[$field . '_to']];
-                }
-            } elseif (isset($queryParams[$field])) {
-                if ($type === 'like') {
-                    $filters[] = ['field' => $field, 'operator' => 'LIKE', 'value' => '%' . $queryParams[$field] . '%'];
-                } else {
-                    $filters[] = ['field' => $field, 'operator' => '=', 'value' => $queryParams[$field]];
-                }
-            }
-        }
-
-        return $filters;
+        return FiltersBuilder::build($queryParams, self::SEARCHABLE_FIELDS);
     }
 }
