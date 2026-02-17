@@ -7,12 +7,24 @@ class Request
     private array $pathParams;
     private array $queryParams;
     private ?array $body;
+    private RequestContext $context;
 
-    public function __construct(array $pathParams, array $queryParams, ?array $body)
+    public function __construct(array $pathParams, array $queryParams, ?array $body, RequestContext $context)
     {
         $this->pathParams = $pathParams;
         $this->queryParams = $queryParams;
         $this->body = $body;
+        $this->context = $context;
+    }
+
+    public function getContext(): RequestContext
+    {
+        return $this->context;
+    }
+
+    public function setContext(RequestContext $context): void
+    {
+        $this->context = $context;
     }
 
     public function hasQueryParams(): bool

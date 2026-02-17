@@ -3,6 +3,7 @@
 namespace App\core\request;
 
 use App\middleware\AuthMiddleware;
+use App\middleware\RequestMiddleware;
 use App\middleware\RequestLogMiddleware;
 use FastRoute\Dispatcher;
 use Illuminate\Container\Container;
@@ -39,11 +40,23 @@ class RequestDispatcher
                 echo json_encode(['error' => 'Method not allowed']);
                 break;
 
-            // Route matched: extract controller, method and params, then dispatch through auth middleware
+            // Route matched: build request, authenticate, then dispatch to controller
             case Dispatcher::FOUND:
-                [$class, $method] = explode('@', $routeInfo[1]);
-                $params = $routeInfo[2];
-                AuthMiddleware::handle($uri, $container, $class, $method, $params, $context);
+                $request = RequestMiddleware::handle($routeInfo, $container);
+                $class = $request->getContext()->getClass();
+                $method = $request->getContext()->getMethod();
+                $user = AuthMiddleware::handle($request);
+
+                if ($user === false) {
+                    break;
+                }
+
+                if ($user) {
+                    $context->user_id = $user->id;
+                    $container->make($class)->$method($request, $user);
+                } else {
+                    $container->make($class)->$method($request);
+                }
                 break;
         }
 

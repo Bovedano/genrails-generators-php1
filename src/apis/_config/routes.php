@@ -1,3 +1,3 @@
 <?php
 
-$r->addRoute('POST', '/_config/migration', 'App\apis\_config\migration\controllers\MigrationController@migrate');
+$r->addRoute('POST', '/v1/_config/migration', 'App\apis\_config\migration\controllers\MigrationController@migrate');

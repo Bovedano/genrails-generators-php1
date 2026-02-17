@@ -5,33 +5,29 @@ namespace App\middleware;
 use App\apis\_auth\models\User;
 use App\apis\_auth\services\JWTService;
 use App\core\request\Request;
-use Illuminate\Container\Container;
 
 class AuthMiddleware
 {
-    const PUBLIC_ROUTES = ['/_auth/register', '/_auth/login', '/_config/migration'];
+    const PUBLIC_ROUTES = ['/v1/_auth/register', '/v1/_auth/login', '/v1/_config/migration'];
 
-    public static function handle(string $uri, Container $container, string $class, string $method, array $params, object $context): void
+    public static function handle(Request $request): User|false|null
     {
-        $body = json_decode(file_get_contents('php://input'), true);
-        $request = new Request($params, $_GET, $body);
+        $context = $request->getContext();
 
-        if (!in_array($uri, self::PUBLIC_ROUTES)) {
-            $user = self::authenticate($container->make(JWTService::class));
-
-            if (!$user) {
-                header('Content-Type: application/json');
-                http_response_code(401);
-                echo json_encode(['error' => 'Unauthorized']);
-                return;
-            }
-
-            $context->user_id = $user->id;
-            $container->make($class)->$method($request, $user);
-            return;
+        if (in_array($context->getUri(), self::PUBLIC_ROUTES)) {
+            return null;
         }
 
-        $container->make($class)->$method($request);
+        $user = self::authenticate($context->getContainer()->make(JWTService::class));
+
+        if (!$user) {
+            header('Content-Type: application/json');
+            http_response_code(401);
+            echo json_encode(['error' => 'Unauthorized']);
+            return false;
+        }
+
+        return $user;
     }
 
     private static function authenticate(JWTService $jwtService): ?User
