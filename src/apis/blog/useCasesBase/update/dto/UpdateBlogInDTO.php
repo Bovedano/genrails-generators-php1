@@ -1,6 +1,6 @@
 <?php
 
-namespace App\apis\blog\dto;
+namespace App\apis\blog\useCasesBase\update\dto;
 
 class UpdateBlogInDTO
 {

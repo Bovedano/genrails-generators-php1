@@ -1,6 +1,6 @@
 <?php
 
-namespace App\core;
+namespace App\core\request;
 
 use App\middleware\AuthMiddleware;
 use App\middleware\RequestLogMiddleware;

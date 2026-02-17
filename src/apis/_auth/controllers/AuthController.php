@@ -12,6 +12,7 @@ use App\apis\_auth\dto\LoginInDTO;
 use App\apis\_auth\dto\LoginOutDTO;
 use App\apis\_auth\dto\MeOutDTO;
 use App\apis\_auth\dto\RefreshOutDTO;
+use App\core\request\Request;
 
 class AuthController
 {
@@ -24,10 +25,10 @@ class AuthController
         $this->jwtService = $jwtService;
     }
 
-    public function register(): void
+    public function register(Request $request): void
     {
         header('Content-Type: application/json');
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $request->getBody();
 
         $errors = AuthValidation::validateRegister($data);
         if ($errors) {
@@ -50,10 +51,10 @@ class AuthController
         ));
     }
 
-    public function login(): void
+    public function login(Request $request): void
     {
         header('Content-Type: application/json');
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $request->getBody();
 
         $errors = AuthValidation::validateLogin($data);
         if ($errors) {
@@ -82,13 +83,13 @@ class AuthController
         ));
     }
 
-    public function me(array $params, User $user): void
+    public function me(Request $request, User $user): void
     {
         header('Content-Type: application/json');
         echo json_encode(MeOutDTO::fromModel($user));
     }
 
-    public function refresh(array $params, User $user): void
+    public function refresh(Request $request, User $user): void
     {
         header('Content-Type: application/json');
         $token = $this->jwtService->encode($user, refresh: true);

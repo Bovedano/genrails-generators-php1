@@ -1,11 +1,11 @@
 <?php
 
-namespace App\apis\blog\filters;
+namespace App\apis\blog\useCasesBase\getAll;
 
 use App\apis\_commons\models\Filter;
-use App\core\FiltersBuilder;
+use App\core\request\FiltersBuilder;
 
-class BlogFilters
+class GetAllBlogFilters
 {
     const SEARCHABLE_FIELDS = [
         'title'       => 'like',
@@ -13,6 +13,8 @@ class BlogFilters
         'user_id'     => 'exact',
         'created_at'  => 'range',
     ];
+
+    const SORTABLE_FIELDS = ['title', 'created_at'];
 
     /**
      * Build filter conditions for Blog from the incoming query parameters.
@@ -24,4 +26,5 @@ class BlogFilters
     {
         return FiltersBuilder::build($queryParams, self::SEARCHABLE_FIELDS);
     }
+
 }

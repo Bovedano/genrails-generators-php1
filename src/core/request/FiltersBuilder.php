@@ -1,6 +1,6 @@
 <?php
 
-namespace App\core;
+namespace App\core\request;
 
 use App\apis\_commons\models\Filter;
 

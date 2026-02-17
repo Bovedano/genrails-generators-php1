@@ -2,6 +2,7 @@
 namespace App\apis\_config\migration\controllers;
 
 use App\apis\_config\migration\services\MigrationService;
+use App\core\request\Request;
 
 class MigrationController
 {
@@ -12,7 +13,7 @@ class MigrationController
         $this->migrationService = $migrationService;
     }
 
-    public function migrate(): void
+    public function migrate(Request $request): void
     {
         // Ouput format
         header('Content-Type: application/json');

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\apis\blog\dto;
+namespace App\apis\blog\useCasesBase\getById\dto;
 
 use JsonSerializable;
-use App\apis\blog\models\Blog;
+use App\apis\blog\_shared\models\Blog;
 
 class GetByIdBlogOutDTO implements JsonSerializable
 {

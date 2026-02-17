@@ -5,7 +5,7 @@ define('BASE_PATH', dirname(__DIR__));
 require BASE_PATH . '/vendor/autoload.php';
 
 use App\db\Connection;
-use App\core\RequestDispatcher;
+use App\core\request\RequestDispatcher;
 use App\logs\Logger;
 use FastRoute\RouteCollector;
 

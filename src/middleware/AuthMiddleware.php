@@ -4,6 +4,7 @@ namespace App\middleware;
 
 use App\apis\_auth\models\User;
 use App\apis\_auth\services\JWTService;
+use App\core\request\Request;
 use Illuminate\Container\Container;
 
 class AuthMiddleware
@@ -12,6 +13,9 @@ class AuthMiddleware
 
     public static function handle(string $uri, Container $container, string $class, string $method, array $params, object $context): void
     {
+        $body = json_decode(file_get_contents('php://input'), true);
+        $request = new Request($params, $_GET, $body);
+
         if (!in_array($uri, self::PUBLIC_ROUTES)) {
             $user = self::authenticate($container->make(JWTService::class));
 
@@ -23,11 +27,11 @@ class AuthMiddleware
             }
 
             $context->user_id = $user->id;
-            $container->make($class)->$method($params, $user);
+            $container->make($class)->$method($request, $user);
             return;
         }
 
-        $container->make($class)->$method($params);
+        $container->make($class)->$method($request);
     }
 
     private static function authenticate(JWTService $jwtService): ?User
