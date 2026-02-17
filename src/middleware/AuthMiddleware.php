@@ -3,7 +3,7 @@
 namespace App\middleware;
 
 use App\apis\_auth\models\User;
-use App\apis\_auth\services\JWTService;
+use App\apis\_commons\services\jwt\JWTService;
 use App\core\request\Request;
 
 class AuthMiddleware

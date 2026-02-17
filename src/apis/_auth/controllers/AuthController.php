@@ -4,7 +4,7 @@ namespace App\apis\_auth\controllers;
 
 use App\apis\_auth\models\User;
 use App\apis\_auth\services\AuthService;
-use App\apis\_auth\services\JWTService;
+use App\apis\_commons\services\jwt\JWTService;
 use App\apis\_auth\validation\AuthValidation;
 use App\apis\_auth\dto\RegisterInDTO;
 use App\apis\_auth\dto\RegisterOutDTO;
