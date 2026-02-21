@@ -2,7 +2,7 @@
 
 namespace App\apis\blog\useCasesBase\getById;
 
-use App\apis\_auth\models\User;
+use App\apis\_auth\_shared\models\User;
 use App\apis\blog\useCasesBase\getById\dto\GetByIdBlogOutDTO;
 use App\core\request\Request;
 

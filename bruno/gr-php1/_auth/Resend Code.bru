@@ -1,0 +1,22 @@
+meta {
+  name: Resend Code
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/v1/_auth/resend-code
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "john@example.com"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

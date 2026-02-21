@@ -1,10 +1,10 @@
 <?php
 
-namespace App\apis\_auth\validation;
+namespace App\apis\_auth\useCasesBase\register;
 
-class AuthValidation
+class RegisterAuthValidation
 {
-    public static function validateRegister(array $data): array
+    public static function validate(array $data): array
     {
         $errors = [];
 
@@ -22,21 +22,6 @@ class AuthValidation
             $errors['password'] = 'Password is required';
         } elseif (strlen($data['password']) < 6) {
             $errors['password'] = 'Password must be at least 6 characters';
-        }
-
-        return $errors;
-    }
-
-    public static function validateLogin(array $data): array
-    {
-        $errors = [];
-
-        if (empty($data['email'])) {
-            $errors['email'] = 'Email is required';
-        }
-
-        if (empty($data['password'])) {
-            $errors['password'] = 'Password is required';
         }
 
         return $errors;

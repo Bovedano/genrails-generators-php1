@@ -1,14 +1,14 @@
 <?php
 
-namespace App\apis\_config\migration\services;
+namespace App\apis\_config\useCasesBase\migration;
 
 use Exception;
 
-class MigrationService 
+class MigrationConfigService
 {
     private string $migrationsPath;
 
-    public function __construct(string $migrationsPath) 
+    public function __construct(string $migrationsPath)
     {
         $this->migrationsPath = $migrationsPath;
     }
@@ -16,7 +16,7 @@ class MigrationService
     /**
      * Ejecuta las migraciones y devuelve el reporte de resultados.
      */
-    public function runMigrations(): array 
+    public function execute(): array
     {
         $results = [];
         $files = glob($this->migrationsPath . '/*.php');
@@ -24,13 +24,12 @@ class MigrationService
         foreach ($files as $file) {
             $name = basename($file, '.php');
             try {
-                // Aquí podrías añadir lógica para no repetir migraciones ya hechas
-                require_once $file; 
+                require_once $file;
                 $results[] = ['migration' => $name, 'status' => 'ok'];
             } catch (Exception $e) {
                 $results[] = [
-                    'migration' => $name, 
-                    'status' => 'error', 
+                    'migration' => $name,
+                    'status' => 'error',
                     'message' => $e->getMessage()
                 ];
             }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\apis\_auth\dto;
+namespace App\apis\_auth\useCasesBase\refresh\dto;
 
 use JsonSerializable;
 
-class RefreshOutDTO implements JsonSerializable
+class RefreshAuthOutDTO implements JsonSerializable
 {
     public function __construct(
         public readonly string $token,

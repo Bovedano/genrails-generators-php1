@@ -1,11 +1,11 @@
 meta {
-  name: Login
+  name: Activate
   type: http
-  seq: 4
+  seq: 2
 }
 
 post {
-  url: {{base_url}}/v1/_auth/login
+  url: {{base_url}}/v1/_auth/activate
   body: json
   auth: none
 }
@@ -13,7 +13,7 @@ post {
 body:json {
   {
     "email": "john@example.com",
-    "password": "secret123"
+    "code": "123456"
   }
 }
 

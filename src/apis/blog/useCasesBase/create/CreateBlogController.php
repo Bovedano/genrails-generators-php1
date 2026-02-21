@@ -2,7 +2,7 @@
 
 namespace App\apis\blog\useCasesBase\create;
 
-use App\apis\_auth\models\User;
+use App\apis\_auth\_shared\models\User;
 use App\apis\blog\useCasesBase\create\dto\CreateBlogInDTO;
 use App\apis\blog\useCasesBase\create\dto\CreateBlogOutDTO;
 use App\core\request\Request;

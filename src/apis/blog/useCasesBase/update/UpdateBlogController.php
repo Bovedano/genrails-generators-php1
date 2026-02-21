@@ -2,7 +2,7 @@
 
 namespace App\apis\blog\useCasesBase\update;
 
-use App\apis\_auth\models\User;
+use App\apis\_auth\_shared\models\User;
 use App\apis\blog\_shared\models\Blog;
 use App\apis\blog\useCasesBase\update\dto\UpdateBlogInDTO;
 use App\apis\blog\useCasesBase\update\dto\UpdateBlogOutDTO;

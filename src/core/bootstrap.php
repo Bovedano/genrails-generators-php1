@@ -1,15 +1,15 @@
 <?php
 
 use Illuminate\Container\Container;
-use App\apis\_config\migration\services\MigrationService;
+use App\apis\_config\useCasesBase\migration\MigrationConfigService;
 use App\apis\_commons\services\jwt\JWTService;
 use App\apis\_commons\services\mail\MailService;
 use App\apis\_commons\services\templates\TemplateService;
 
 $container = new Container();
 
-$container->singleton(MigrationService::class, function () {
-    return new MigrationService(BASE_PATH . '/src/db/migrations');
+$container->singleton(MigrationConfigService::class, function () {
+    return new MigrationConfigService(BASE_PATH . '/src/db/migrations');
 });
 
 $container->singleton(JWTService::class, function () {

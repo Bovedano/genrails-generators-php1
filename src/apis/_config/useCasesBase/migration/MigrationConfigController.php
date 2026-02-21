@@ -1,26 +1,24 @@
 <?php
-namespace App\apis\_config\migration\controllers;
+namespace App\apis\_config\useCasesBase\migration;
 
-use App\apis\_config\migration\services\MigrationService;
 use App\core\request\Request;
 
-class MigrationController
+class MigrationConfigController
 {
-    private MigrationService $migrationService;
+    private MigrationConfigService $service;
 
-    public function __construct(MigrationService $migrationService)
+    public function __construct(MigrationConfigService $service)
     {
-        $this->migrationService = $migrationService;
+        $this->service = $service;
     }
 
-    public function migrate(Request $request): void
+    public function __invoke(Request $request): void
     {
-        // Ouput format
         header('Content-Type: application/json');
 
         try {
-            $results = $this->migrationService->runMigrations();
-            
+            $results = $this->service->execute();
+
             echo json_encode([
                 'status' => 'success',
                 'data' => $results

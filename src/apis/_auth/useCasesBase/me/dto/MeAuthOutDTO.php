@@ -1,11 +1,11 @@
 <?php
 
-namespace App\apis\_auth\dto;
+namespace App\apis\_auth\useCasesBase\me\dto;
 
 use JsonSerializable;
-use App\apis\_auth\models\User;
+use App\apis\_auth\_shared\models\User;
 
-class MeOutDTO implements JsonSerializable
+class MeAuthOutDTO implements JsonSerializable
 {
     public function __construct(
         public readonly int     $id,

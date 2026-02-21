@@ -2,7 +2,7 @@
 
 namespace App\apis\blog\useCasesBase\getAll;
 
-use App\apis\_auth\models\User;
+use App\apis\_auth\_shared\models\User;
 use App\apis\_commons\models\Filter;
 use App\core\request\Request;
 use App\core\request\PaginationBuilder;

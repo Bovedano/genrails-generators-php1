@@ -2,7 +2,7 @@
 
 namespace App\apis\blog\useCasesBase\delete;
 
-use App\apis\_auth\models\User;
+use App\apis\_auth\_shared\models\User;
 use App\apis\blog\_shared\models\Blog;
 use App\core\request\Request;
 

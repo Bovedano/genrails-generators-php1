@@ -2,13 +2,13 @@
 
 namespace App\middleware;
 
-use App\apis\_auth\models\User;
+use App\apis\_auth\_shared\models\User;
 use App\apis\_commons\services\jwt\JWTService;
 use App\core\request\Request;
 
 class AuthMiddleware
 {
-    const PUBLIC_ROUTES = ['/v1/_auth/register', '/v1/_auth/login', '/v1/_config/migration'];
+    const PUBLIC_ROUTES = ['/v1/_auth/register', '/v1/_auth/activate', '/v1/_auth/resend-code', '/v1/_auth/login', '/v1/_config/migration'];
 
     public static function handle(Request $request): User|false|null
     {

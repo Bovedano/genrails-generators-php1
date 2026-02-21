@@ -4,7 +4,7 @@ namespace App\apis\_commons\services\jwt;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use App\apis\_auth\models\User;
+use App\apis\_auth\_shared\models\User;
 
 class JWTService
 {
