@@ -6,7 +6,7 @@ use App\apis\blog\_shared\models\Blog;
 
 class GetByIdBlogService
 {
-    public function execute(int $id): ?Blog
+    public function execute(string $id): ?Blog
     {
         return Blog::find($id);
     }

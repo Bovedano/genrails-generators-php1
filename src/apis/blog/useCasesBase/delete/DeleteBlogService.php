@@ -6,7 +6,7 @@ use App\apis\blog\_shared\models\Blog;
 
 class DeleteBlogService
 {
-    public function execute(int $id): bool
+    public function execute(string $id): bool
     {
         $blog = Blog::find($id);
         if (!$blog) return false;

@@ -30,7 +30,7 @@ class UpdateBlogController
         }
 
         $dto = UpdateBlogInDTO::fromArray($data);
-        $blog = $this->service->execute((int) $request->getPathParam('id'), $dto->toArray());
+        $blog = $this->service->execute($request->getPathParam('id'), $dto->toArray());
 
         if (!$blog) {
             http_response_code(404);
@@ -44,7 +44,7 @@ class UpdateBlogController
     public function me(Request $request, User $user): void
     {
         header('Content-Type: application/json');
-        $id = (int) $request->getPathParam('id');
+        $id = $request->getPathParam('id');
 
         $existing = Blog::where('id', $id)->where('user_id', $user->id)->first();
         if (!$existing) {

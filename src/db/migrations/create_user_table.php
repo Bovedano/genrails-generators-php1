@@ -4,7 +4,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\Schema\Blueprint;
 
 Capsule::schema()->create('user', function (Blueprint $table) {
-    $table->id();
+    $table->uuid('id')->primary();
     $table->string('name');
     $table->string('email')->unique();
     $table->string('password');

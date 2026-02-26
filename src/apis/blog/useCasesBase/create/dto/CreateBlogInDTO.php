@@ -7,7 +7,7 @@ class CreateBlogInDTO
     public function __construct(
         public readonly string $title,
         public readonly string $description,
-        public readonly int    $user_id,
+        public readonly string $user_id,
     ) {}
 
     public static function fromArray(array $data): self
@@ -15,7 +15,7 @@ class CreateBlogInDTO
         return new self(
             title:       $data['title'],
             description: $data['description'],
-            user_id:     (int) $data['user_id'],
+            user_id:     $data['user_id'],
         );
     }
 

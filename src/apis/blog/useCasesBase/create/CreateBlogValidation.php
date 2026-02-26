@@ -18,8 +18,8 @@ class CreateBlogValidation
 
         if (empty($data['user_id'])) {
             $errors['user_id'] = 'User ID is required';
-        } elseif (!is_numeric($data['user_id'])) {
-            $errors['user_id'] = 'User ID must be a number';
+        } elseif (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $data['user_id'])) {
+            $errors['user_id'] = 'User ID must be a valid UUID';
         }
 
         return $errors;

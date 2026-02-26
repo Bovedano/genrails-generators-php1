@@ -114,6 +114,7 @@ class MailService
         $mail->SMTPSecure = $this->encryption;
         $mail->Port = $this->port;
         $mail->CharSet = 'UTF-8';
+        $mail->Timeout = 10;
 
         return $mail;
     }

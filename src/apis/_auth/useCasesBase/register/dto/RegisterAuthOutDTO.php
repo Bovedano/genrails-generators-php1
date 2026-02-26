@@ -8,7 +8,7 @@ use App\apis\_auth\_shared\models\User;
 class RegisterAuthOutDTO implements JsonSerializable
 {
     public function __construct(
-        public readonly int    $id,
+        public readonly string $id,
         public readonly string $name,
         public readonly string $email,
         public readonly string $role,

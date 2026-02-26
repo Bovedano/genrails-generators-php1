@@ -18,7 +18,7 @@ class GetByIdBlogController
     public function __invoke(Request $request, User $user): void
     {
         header('Content-Type: application/json');
-        $blog = $this->service->execute((int) $request->getPathParam('id'));
+        $blog = $this->service->execute($request->getPathParam('id'));
 
         if (!$blog) {
             http_response_code(404);
@@ -32,7 +32,7 @@ class GetByIdBlogController
     public function me(Request $request, User $user): void
     {
         header('Content-Type: application/json');
-        $blog = $this->service->execute((int) $request->getPathParam('id'));
+        $blog = $this->service->execute($request->getPathParam('id'));
 
         if (!$blog || $blog->user_id !== $user->id) {
             http_response_code(404);

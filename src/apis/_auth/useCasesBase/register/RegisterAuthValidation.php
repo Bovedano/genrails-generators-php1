@@ -2,6 +2,8 @@
 
 namespace App\apis\_auth\useCasesBase\register;
 
+use App\apis\_auth\_shared\models\User;
+
 class RegisterAuthValidation
 {
     public static function validate(array $data): array
@@ -16,6 +18,8 @@ class RegisterAuthValidation
             $errors['email'] = 'Email is required';
         } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = 'Email must be a valid email address';
+        } elseif (User::where('email', $data['email'])->exists()) {
+            $errors['email'] = 'Email is already registered';
         }
 
         if (empty($data['password'])) {

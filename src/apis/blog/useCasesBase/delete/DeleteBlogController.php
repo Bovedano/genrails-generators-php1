@@ -18,7 +18,7 @@ class DeleteBlogController
     public function __invoke(Request $request, User $user): void
     {
         header('Content-Type: application/json');
-        $deleted = $this->service->execute((int) $request->getPathParam('id'));
+        $deleted = $this->service->execute($request->getPathParam('id'));
 
         if (!$deleted) {
             http_response_code(404);
@@ -32,7 +32,7 @@ class DeleteBlogController
     public function me(Request $request, User $user): void
     {
         header('Content-Type: application/json');
-        $id = (int) $request->getPathParam('id');
+        $id = $request->getPathParam('id');
 
         $existing = Blog::where('id', $id)->where('user_id', $user->id)->first();
         if (!$existing) {
